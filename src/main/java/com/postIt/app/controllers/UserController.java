@@ -27,6 +27,13 @@ public class UserController {
 	//Create an user
 	@PostMapping
 	public ResponseEntity<?> create (@RequestBody User user){
+		
+		for (User iterable_user : userService.findAll()) {
+			if(iterable_user.getEmail().equals(user.getEmail())) {
+				return ResponseEntity.badRequest().build();
+			}
+		}
+		
 		return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));
 		
 	}
