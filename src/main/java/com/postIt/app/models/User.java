@@ -27,7 +27,7 @@ public class User implements Serializable{
 	
 	private String password;
 	
-	private Boolean enabled;
+	private Boolean enabled = false;
 
 	public Long getId() {
 		return id;
