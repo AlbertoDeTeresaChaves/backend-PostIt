@@ -92,6 +92,20 @@ public class UserController {
 		
 	}
 	
+	//verificate an user
+	@PutMapping("/verificate/{id}")
+	public ResponseEntity<?> verificate(@PathVariable(value = "id") Long userId){
+		Optional<User> oUser = userService.findById(userId);
+		
+		if(!oUser.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
+	
+		oUser.get().setEnabled(true);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(oUser.get()));
+	}
+	
 	//Delete an user
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete (@PathVariable(value = "id") Long userId){
