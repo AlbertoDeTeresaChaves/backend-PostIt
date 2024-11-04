@@ -30,7 +30,7 @@ public class EmailServiceImpl implements EmailService{
 		MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 		
 		helper.setTo(email.getAddressee());
-		helper.setSubject(email.getAffair());
+		helper.setSubject(email.getSubject());
 		
 		Context context = new Context();
 		context.setVariable("message", email.getMessage());

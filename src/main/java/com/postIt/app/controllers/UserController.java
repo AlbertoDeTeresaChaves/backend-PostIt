@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.postIt.app.models.Email;
 import com.postIt.app.models.User;
+import com.postIt.app.services.EmailServiceImpl;
 import com.postIt.app.services.UserService;
 
 @RestController
@@ -24,6 +26,8 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+    @Autowired
+    private EmailServiceImpl emailServiceImpl;
 	//Create an user
 	@PostMapping
 	public ResponseEntity<?> create (@RequestBody User user){
@@ -32,6 +36,20 @@ public class UserController {
 			if(iterable_user.getEmail().equals(user.getEmail())) {
 				return ResponseEntity.badRequest().build();
 			}
+		}
+		
+		User savedUser = userService.save(user);
+		
+		try {
+			
+			Email wellcomeEmail = new Email(null, null, null);
+			wellcomeEmail.setAddressee(savedUser.getEmail());
+			wellcomeEmail.setSubject("Bienvenido a nuestra plataforma");
+			wellcomeEmail.setMessage("Bienvenid@ " + savedUser.getUsername());
+			
+			emailServiceImpl.sendMail(wellcomeEmail);
+		}catch(Exception e){
+			
 		}
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));

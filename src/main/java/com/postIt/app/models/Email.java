@@ -3,13 +3,13 @@ package com.postIt.app.models;
 public class Email {
 
 	private String addressee;
-	private String affair;
+	private String subject;
 	private String message;
 	
-	public Email(String addressee, String affair, String message) {
+	public Email(String addressee, String subject, String message) {
 		super();
 		this.addressee = addressee;
-		this.affair = affair;
+		this.subject = subject;
 		this.message = message;
 	}
 
@@ -21,12 +21,12 @@ public class Email {
 		this.addressee = addressee;
 	}
 
-	public String getAffair() {
-		return affair;
+	public String getSubject() {
+		return subject;
 	}
 
-	public void setAffair(String affair) {
-		this.affair = affair;
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 
 	public String getMessage() {

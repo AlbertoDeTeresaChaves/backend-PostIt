@@ -1,11 +1,25 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.tymeleaf.org">
-	<head>
-		<title>Correo prueba con HTML</title>
-	</head>
+<html lang="en" xmlns:th="http://www.tymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="font-size: 15px; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">>
+    <h1 th:text="${message}"></h1>
 
-	<body>
-		<h1>¡Hola!</h1>
-		<p th:text="${message}"></p>
-	</body>
+    <p>Gracias por confiar en nosotros</p>
+
+	<div style="text-align: center; font-weight: bold;">
+	    <p>Para verificar su correo debe acceder al botón de abajo</p>
+
+	    <button style="padding: 12px; border-radius: 25px; background-color: greenyellow; font-weight: bold; color: black;">
+	        VERIFICAR CORREO
+	    </button>
+	</div>
+
+	<p>El enlace solo es válido hasta un máximo de 2 días</p>
+
+	<p>Un abrazo de parte del equipo de PostIt</p>
+</body>
 </html>
