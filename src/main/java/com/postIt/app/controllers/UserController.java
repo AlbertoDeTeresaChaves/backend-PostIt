@@ -1,7 +1,6 @@
 package com.postIt.app.controllers;
 
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +23,7 @@ import com.postIt.app.services.UserService;
 @RequestMapping("/api/users")
 public class UserController {
 
+	  
 	@Autowired
 	private UserService userService;
 	
@@ -35,10 +35,8 @@ public class UserController {
 	@PostMapping
 	public ResponseEntity<?> create (@RequestBody User user){
 		
-		for (User iterable_user : userService.findAll()) {
-			if(iterable_user.getEmail().equals(user.getEmail())) {
-				return ResponseEntity.badRequest().build();
-			}
+		if(userService.existsByEmail(user.getEmail())) {
+			 return ResponseEntity.status(HttpStatus.CONFLICT).body("El correo ya está en uso");
 		}
 		
 		User savedUser = userService.save(user);
@@ -52,7 +50,9 @@ public class UserController {
 			
 			emailServiceImpl.sendMail(wellcomeEmail);
 		}catch(Exception e){
-			
+
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("Error al enviar el email " +  e);
 		}
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));

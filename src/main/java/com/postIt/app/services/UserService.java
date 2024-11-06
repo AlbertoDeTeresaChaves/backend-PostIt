@@ -20,4 +20,6 @@ public interface UserService {
 	public User save(User user);
 	
 	public void deleteById(Long id);
+	
+	public boolean existsByEmail(String email);
 }
